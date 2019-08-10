@@ -40,6 +40,9 @@
 					})
 				})
 			})
+			window.addEventListener('resize', () => {
+				terminal.fit()
+			})
 			terminal.open(element)
 			terminal.fit()
 
