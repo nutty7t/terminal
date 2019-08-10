@@ -2,16 +2,25 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/xterm.css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/addons/fullscreen/fullscreen.css"/>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/xterm.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/addons/attach/attach.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/addons/fit/fit.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/addons/fullscreen/fullscreen.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/addons/webLinks/webLinks.js"></script>
 	</head>
 	<body>
 		<div id="terminal"></div>
 		<script>
-			Terminal.Addon(attach)
+			Terminal.applyAddon(attach)
+			Terminal.applyAddon(fit)
+			Terminal.applyAddon(fullscreen)
+			Terminal.applyAddon(webLinks)
+
 			var element = document.getElementById('terminal')
 			var terminal = new Terminal()
 			terminal.open(element)
+			terminal.toggleFullscreen()
 
 			var endpoint = `wss://${window.location.host}/terminal`
 			var socket = new WebSocket(endpoint)
