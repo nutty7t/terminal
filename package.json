@@ -1,0 +1,24 @@
+{
+  "name": "terminal",
+  "version": "0.1.0",
+  "description": "terminal emulator that runs in the browser",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nutty7t/terminal.git"
+  },
+  "author": "ナッティ <nutty7t>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nutty7t/terminal/issues"
+  },
+  "homepage": "https://github.com/nutty7t/terminal#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-ws": "^4.0.0",
+    "node-pty": "^0.8.1"
+  }
+}
