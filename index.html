@@ -6,21 +6,42 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/xterm.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/addons/attach/attach.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/addons/fit/fit.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/addons/fullscreen/fullscreen.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/addons/webLinks/webLinks.js"></script>
+		<style>
+			html, body {
+				margin: 0;
+				padding: 0;
+			}
+
+			#terminal {
+				height: 100vh;
+				width: 100vw;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="terminal"></div>
 		<script>
 			Terminal.applyAddon(attach)
 			Terminal.applyAddon(fit)
-			Terminal.applyAddon(fullscreen)
 			Terminal.applyAddon(webLinks)
 
 			var element = document.getElementById('terminal')
 			var terminal = new Terminal()
+			terminal.on('resize', ({ cols, rows }) => {
+				fetch('/resize', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						cols,
+						rows
+					})
+				})
+			})
 			terminal.open(element)
-			terminal.toggleFullscreen()
+			terminal.fit()
 
 			var endpoint = `wss://${window.location.host}/terminal`
 			var socket = new WebSocket(endpoint)

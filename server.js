@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser')
 const express = require('express')
 const path = require('path')
 const pty = require('node-pty')
@@ -17,6 +18,14 @@ const terminal = pty.spawn(shell, [], {
 
 app.get('/', function (_, res) {
 	res.sendFile(path.join(__dirname, '/index.html'))
+})
+
+app.use(bodyParser.json())
+app.post('/resize', function (req, res) {
+	const cols = parseInt(req.body.cols, 10)
+	const rows = parseInt(req.body.rows, 10)
+	terminal.resize(cols, rows)
+	res.end()
 })
 
 require('express-ws')(app)
