@@ -15,20 +15,49 @@
 				font-style: normal;
 			}
 
+			@font-face {
+				font-family: 'Nutty';
+				src: URL('bold.ttf') format('truetype');
+				font-weight: bold;
+				font-style: normal;
+			}
+
 			html, body {
 				font-family: 'Nutty';
+				background: black;
 				margin: 0;
 				padding: 0;
 			}
 
+			#logo {
+				color: white;
+				float: right;
+				margin: 10px 50px;
+				font-weight: 700;
+			}
+
+			#logo:after {
+				content: 'クラウド';
+				color: #28CBFF;
+			}
+
 			#terminal {
-				height: 100vh;
-				width: 100vw;
+				height: calc(100vh - 100px);
+				width: calc(100vw - 100px);
+				border: 1px solid white;
+				margin: auto;
+				margin-top: 30px;
+				padding: 10px;
+			}
+
+			.xterm-viewport {
+				overflow: hidden !important;
 			}
 		</style>
 	</head>
 	<body>
 		<div id="terminal"></div>
+		<div id="logo">ナッティ</div>
 		<script>
 			Terminal.applyAddon(attach)
 			Terminal.applyAddon(fit)
