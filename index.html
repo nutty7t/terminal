@@ -72,6 +72,7 @@
 			// Mount the terminal.
 			var element = document.getElementById('terminal')
 			var terminal = new Terminal({
+				macOptionIsMeta: true,
 				fontFamily: 'Nutty',
 				fontSize: 16
 			})
@@ -100,9 +101,17 @@
 			terminal.fit()
 
 			// Connect to server.
-			var endpoint = `wss://${window.location.host}/terminal`
-			var socket = new WebSocket(endpoint)
-			socket.onopen = () => terminal.attach(socket);
+			function connect () {
+				var endpoint = `wss://${window.location.host}/terminal`
+				var socket = new WebSocket(endpoint)
+				socket.onopen = () => terminal.attach(socket);
+				socket.onclose = () => {
+					setTimeout(() => {
+						connect()
+					}, 0)
+				}
+			}
+			connect()
 		</script>
 	</body>
 </html>
